@@ -132,9 +132,15 @@ const dessineDamier = () => {
             // remplacer l'attribut 'src' de caseElement par croix.png
         // remplacer les attributs d'un élément: https://developer.mozilla.org/fr/docs/Web/API/Element/setAttribute
 
-    damier.forEach(function (damierItem) {
-        const caseElement = document.querySelector('#case')
-        console.log(caseElement)
+    damier.forEach(function (damierItem, i) {
+        const caseElement = document.querySelector('#case' + i)
+        if (damier[i] === 'X'){
+            caseElement.setAttribute("src", "croix.jpg")
+        }else if(damier[i] === 'O'){
+            caseElement.setAttribute("src", "rond.png")
+        }else{
+            caseElement.setAttribute("src", "vide.jpg")
+        }
     })
 }
 
@@ -151,6 +157,10 @@ const afficheTexte = (texte) => {
         // sélectionne l'élément #zonedetexte et stocke le dans une constante
         // remplace le text de cet élément avec le la variable texte
         // replacer le texte d'un élément: https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
+
+    const zoneTexte = document.querySelector("#zonedetexte")
+
+    zoneTexte.textContent = texte
 }
 
 /**
