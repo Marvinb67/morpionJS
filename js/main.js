@@ -49,7 +49,6 @@ const auClickSurBoutonStart = () => {
 
     boutonStart.addEventListener("click", () => {
         demarrerPartie()
-        console.log(damier)
     })
 }
 
@@ -135,11 +134,11 @@ const dessineDamier = () => {
     damier.forEach(function (damierItem, i) {
         const caseElement = document.querySelector('#case' + i)
         if (damier[i] === 'X'){
-            caseElement.setAttribute("src", "croix.jpg")
+            caseElement.setAttribute("src", "./img/croix.png")
         }else if(damier[i] === 'O'){
-            caseElement.setAttribute("src", "rond.png")
+            caseElement.setAttribute("src", "./img/rond.png")
         }else{
-            caseElement.setAttribute("src", "vide.jpg")
+            caseElement.setAttribute("src", "./img/vide.jpg")
         }
     })
 }
@@ -174,8 +173,16 @@ const nbCaseVide = () => {
     // TODO: parcours le tableau damier avec une boucle for
     // À chaque itération, si la valeur damier[i] est égale 'V': incrémente nombreDeCaseVide de 1
 
+    for (let i = 0; i < damier.length; i++) {
+        if(damier[i] === 'V'){
+            nombreDeCaseVide += 1
+        }
+    }
+
     return nombreDeCaseVide;
 }
+
+
 
 /**
  * Cette fonction vérifie si "joueur" est X ou O
@@ -186,6 +193,11 @@ const nbCaseVide = () => {
 const alterneJoueur = () => {
     // TODO: si la variable joueur est égale à 'X'
         // Change la valeur de la variable joueur par 'O'
+        if(joueur === 'X'){
+            joueur = 'O'
+        }else if(joueur === 'O'){
+            joueur = 'X'
+        }
     // TODO: si la variable joueur est égale à 'O'
         // Change la valeur de la variable joueur par 'X'
 }
@@ -248,10 +260,28 @@ const alignementLigne = (numligne, jeton) => {
     // et analyser son contenu.
     // Exemple : S'il y a 3 'O' à la ligne 1, on retourne true. Sinon on retourne false.
 
+
+    if(damier[0] === "X" && damier[1] === "X" && damier[2] === "X"){
+        return true
+    }else if(damier[3] === "X" && damier[4] === "X" && damier[5] === "X"){
+        return true
+    }else if(damier[6] === "X" && damier[7] === "X" && damier[8] === "X"){
+        return true
+    }else if(damier[0] === "O" && damier[1] === "O" && damier[2] === "O"){
+        return true
+    }else if(damier[3] === "O" && damier[4] === "O" && damier[5] === "O"){
+        return true
+    }else if(damier[6] === "O" && damier[7] === "O" && damier[8] === "O"){
+        return true
+    }else{
+        return false
+    }
+
     // Avant de démarrer
     // - comment accéder à un index d'un tableau ? Réponse : tableau[1] par exemple
     // - quels sont les index des cases qui correspondent à la première ligne ? Réponse : à toi de trouver
 }
+
 
 /**
  * Cette fonction vérifie si UNE colonne (numcolonne) algine 3 jetons X ou O (jeton)
@@ -271,6 +301,22 @@ const alignementColonne = (numcolonne, jeton) => {
     // Avant de démarrer
     // - comment accéder à un index d'un tableau ? Réponse : tableau[1] par exemple
     // - quels sont les index des cases qui correspondent à la première colonne ? Réponse : à toi de trouver
+
+    if(damier[0] === "X" && damier[3] === "X" && damier[6] === "X"){
+        return true
+    }else if(damier[1] === "X" && damier[4] === "X" && damier[7] === "X"){
+        return true
+    }else if(damier[2] === "X" && damier[5] === "X" && damier[8] === "X"){
+        return true
+    }else if(damier[0] === "O" && damier[3] === "O" && damier[6] === "O"){
+        return true
+    }else if(damier[1] === "O" && damier[4] === "O" && damier[7] === "O"){
+        return true
+    }else if(damier[2] === "O" && damier[5] === "O" && damier[8] === "O"){
+        return true
+    }else{
+        return false
+    }
 }
 
 /**
@@ -289,6 +335,18 @@ const alignementDiagonale = (jeton) => {
     // Avant de démarrer
     // - comment accéder à un index d'un tableau ? Réponse : tableau[1] par exemple
     // - quels sont les index des cases qui correspondent aux diagonales ? Réponse : à toi de trouver
+
+    if(damier[0] === "X" && damier[4] === "X" && damier[8] === "X"){
+        return true
+    }else if(damier[2] === "X" && damier[4] === "X" && damier[6] === "X"){
+        return true
+    }else if(damier[0] === "O" && damier[4] === "O" && damier[8] === "O"){
+        return true
+    }else if(damier[2] === "O" && damier[4] === "O" && damier[6] === "O"){
+        return true
+    }else{
+        return false
+    }
 }
 
 /**
@@ -312,6 +370,22 @@ const alignement = (jeton) => {
         // Si son résultat est true, retourner true
 
     // Sinon retourner false
+
+    for (let i = 0; i < 3; i++){
+        alignementDiagonale()
+        alignementColonne()
+        alignementLigne()
+
+        if(alignementDiagonale() === true){
+            return true
+        }else if(alignementLigne() === true){
+            return true
+        }else if(alignementColonne() === true){
+            return true
+        }else{
+            return false
+        }
+    }
 }
 
 auClickSurBoutonStart()
